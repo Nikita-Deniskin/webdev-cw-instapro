@@ -1,7 +1,8 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, onClickLike, user } from "../index.js";
-
+import { formatDistanceToNow } from "date-fns";
+import { ru } from 'date-fns/locale';
 
 export function renderPostsPageComponent({ appEl }) {
   // console.log("Актуальный список постов:", posts);
@@ -32,7 +33,7 @@ export function renderPostsPageComponent({ appEl }) {
 };
 
 function getPost(post) {
-
+  const fromDate = formatDistanceToNow(new Date(post.createdAt), { locale: ru });
   return `<li class="post">
   <div class="post-header" data-user-id=${post.user.id}>
       <img src=${post.user.imageUrl} class="post-header__user-image">
@@ -54,7 +55,7 @@ function getPost(post) {
     ${post.description}
   </p>
   <p class="post-date">
-  Опубликовано назад
+  Опубликовано ${fromDate} назад
   </p>
 </li>`
 };
@@ -90,18 +91,12 @@ export function renderUserPosts({ appEl }) {
   });
 
   const copyUrlToClipboard = () => {
-    // Получаем URL-адрес текущей страницы
     const currentPageUrl = window.location.href;
-
-    // Копируем URL-адрес в буфер обмена
     navigator.clipboard.writeText(currentPageUrl);
-
-    // Отображаем сообщение о том, что URL-адрес скопирован
     alert("Ссылка скопирована в буфер обмена");
   };
+  
   const copyButton = document.getElementById("copybutton");
-
-  // Добавляем обработчик события на кнопку
   copyButton.addEventListener("click", copyUrlToClipboard);
   showUserPosts(appEl);
 };
@@ -140,7 +135,7 @@ function initLikeButtons() {
 };
 
 function getUserPost(post) {
-
+  const fromDate = formatDistanceToNow(new Date(post.createdAt), { locale: ru });
   return `
   <li class="user-post">
     <div class="post-user-image-container">
@@ -157,7 +152,7 @@ function getUserPost(post) {
           </p>
         </div>
         <p class="post-text"><span class="user-name">${post.user.name}</span> ${post.description}</p>
-        <p class="post-date">Опубликовано  назад</p>
+        <p class="post-date">Опубликовано ${fromDate} назад</p>
       </div>
       <button class="delete-button" data-post-id="${post.id}"></button>
     </div>

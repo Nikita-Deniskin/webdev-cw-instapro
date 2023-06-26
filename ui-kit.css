@@ -1,7 +1,7 @@
-/* 
+/* * 
   Это стили Дизайн системы, сквозные стили для элементов интерфейса
   всего приложения: шрифты, кнопки, инпуты и так далее
-*/
+*/ 
 
 @font-face {
   font-family: "StratosSkyeng";
@@ -52,6 +52,18 @@ p {
   background-color: #565eef;
   color: #ffffff;
   border: none;
+}
+.delete-button{
+background-image: url(assets/images/delete-button.svg);
+width: 23px;
+height: 27px;
+display: none;
+border: none;
+background: cover;
+background-color: white;
+}
+.delete-button-active{
+  display: block;
 }
 
 .link-button {
